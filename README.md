@@ -5,7 +5,7 @@ The purpose of this project is to help computer engineering students to understa
 
 This program consists of a simulator for a superscalar architecture based on Tomasulo's algorithm. 
 
-This is an alpha version with the purpose of being evaluated and improved. Any contribution is welcomed. 
+This is an alpha version with the purpose of being evaluated and improved. Any contribution is welcomed.
 
 **Roberto Miranda**
 robertomap@gmail.com
@@ -16,14 +16,14 @@ eduardo.gregorio@sga.pucminas.br
 ## How to use it
 
 #### Starting the Simulator
-Double click on the 'SuperscalarSIM.jar' file. You can either run it from terminal.
+Although you can compile it from source, it's also available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can either run it from terminal.
 
 ```sh
  $ java -jar dist/SuperscalarSIM.jar 
 ```
 
 #### Opening an *Assembly Code*
-Once started, go to **File** menu, then **Open Program**. The assembly code will appear in the left side table which represents the instruction memory block.
+Once started, go to **File** menu, then **Open Program**. It will appear a file selection window. Select a pseudo MIPS assemply file and click **Open**. Some examples are available in the **test** folder. After selecting the file the assembly code will appear in the memory block, represented by the left side table.
 
 #### Configuring Operational Parameters
 On the **Configuration** menu it's possible to select different pipeline execution options.
@@ -44,5 +44,5 @@ On the **Configuration** menu it's possible to select different pipeline executi
 #### Executing the Code
 Now you'll be able to see the instructions flowing through the pipeline one clock tick at a time.
 
-Every time you click the **Next** button, at the left lower screen side, you push the execution ahead one clock cycle. The menu command **File** -> **Run** have the same purpose.
+Every time you click the **Next** button, at the left lower side, you push the execution ahead one clock cycle. The menu command **File** -> **Run** have the same purpose.
 
