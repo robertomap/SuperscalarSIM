@@ -1,0 +1,206 @@
+<!--
+***************************************************************************
+*   Copyright (C) 2019 by Roberto Miranda                                 *
+*   robertomap@gmail.com                                                  *
+*                                                                         *
+*   SuperscalarSIM is free software: you can redistribute it and/or       *
+*   modify it under the terms of the GNU General Public License as        *
+*   published by the Free Software Foundation, either version 3 of        *
+*   the License, or (at your option) any later version.                   *
+*                                                                         *
+***************************************************************************
+-->
+
+
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.input.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:id="Panel" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="620.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SuperscalarSIM.pkg1.FXMLDocumentController">
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+   <children>
+      <ImageView fx:id="fundo" fitHeight="620.0" fitWidth="1280.0" smooth="false">
+         <image>
+            <Image url="@../../resources/FUNDO4.png" />
+         </image></ImageView>
+      <Button fx:id="BotaoNext" layoutX="46.0" layoutY="500.0" mnemonicParsing="false" onAction="#nextCommandCheckButton" prefHeight="11.0" prefWidth="73.0" text="Next" />
+      <TableView fx:id="reservStation1" layoutX="337.0" layoutY="93.0" prefHeight="100.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="reservStation1Inst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="reservStation1Op" editable="false" maxWidth="54.0" minWidth="54.0" prefWidth="54.0" resizable="false" sortable="false" text="Op" />
+            <TableColumn fx:id="reservStation1Vj" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vj" />
+            <TableColumn fx:id="reservStation1Vk" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vk" />
+            <TableColumn fx:id="reservStation1Qj" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qj" />
+            <TableColumn fx:id="reservStation1Qk" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qk" />
+            <TableColumn fx:id="reservStation1A" editable="false" maxWidth="56.0" minWidth="56.0" prefWidth="56.0" resizable="false" sortable="false" text="A" />
+            <TableColumn fx:id="reservStation1Busy" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" text="Busy" />
+         </columns>
+      </TableView>
+      <TableView fx:id="reservStation2" layoutX="337.0" layoutY="160.0" prefHeight="100.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="reservStation2Inst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="reservStation2Op" editable="false" maxWidth="54.0" minWidth="54.0" prefWidth="54.0" resizable="false" sortable="false" text="Op" />
+            <TableColumn fx:id="reservStation2Vj" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vj" />
+            <TableColumn fx:id="reservStation2Vk" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vk" />
+            <TableColumn fx:id="reservStation2Qj" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qj" />
+            <TableColumn fx:id="reservStation2Qk" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qk" />
+            <TableColumn fx:id="reservStation2A" editable="false" maxWidth="56.0" minWidth="56.0" prefWidth="56.0" resizable="false" sortable="false" text="A" />
+            <TableColumn fx:id="reservStation2Busy" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" text="Busy" />
+         </columns>
+      </TableView>
+      <TableView fx:id="reservStation3" layoutX="337.0" layoutY="225.0" prefHeight="100.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="reservStation3Inst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="reservStation3Op" editable="false" maxWidth="54.0" minWidth="54.0" prefWidth="54.0" resizable="false" sortable="false" text="Op" />
+            <TableColumn fx:id="reservStation3Vj" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vj" />
+            <TableColumn fx:id="reservStation3Vk" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vk" />
+            <TableColumn fx:id="reservStation3Qj" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qj" />
+            <TableColumn fx:id="reservStation3Qk" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qk" />
+            <TableColumn fx:id="reservStation3A" editable="false" maxWidth="56.0" minWidth="56.0" prefWidth="56.0" resizable="false" sortable="false" text="A" />
+            <TableColumn fx:id="reservStation3Busy" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" text="Busy" />
+         </columns>
+      </TableView>
+      <TableView fx:id="reservStation4" layoutX="337.0" layoutY="291.0" prefHeight="100.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="reservStation4Inst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="reservStation4Op" editable="false" maxWidth="54.0" minWidth="54.0" prefWidth="54.0" resizable="false" sortable="false" text="Op" />
+            <TableColumn fx:id="reservStation4Vj" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vj" />
+            <TableColumn fx:id="reservStation4Vk" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" sortable="false" text="Vk" />
+            <TableColumn fx:id="reservStation4Qj" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qj" />
+            <TableColumn fx:id="reservStation4Qk" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qk" />
+            <TableColumn fx:id="reservStation4A" editable="false" maxWidth="56.0" minWidth="56.0" prefWidth="56.0" sortable="false" text="A" />
+            <TableColumn fx:id="reservStation4Busy" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" text="Busy" />
+         </columns>
+      </TableView>
+      <TableView fx:id="reservStation5" layoutX="337.0" layoutY="362.0" prefHeight="100.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="reservStation5Inst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="reservStation5Op" editable="false" maxWidth="54.0" minWidth="54.0" prefWidth="54.0" resizable="false" sortable="false" text="Op" />
+            <TableColumn fx:id="reservStation5Vj" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vj" />
+            <TableColumn fx:id="reservStation5Vk" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" sortable="false" text="Vk" />
+            <TableColumn fx:id="reservStation5Qj" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qj" />
+            <TableColumn fx:id="reservStation5Qk" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qk" />
+            <TableColumn fx:id="reservStation5A" editable="false" maxWidth="56.0" minWidth="56.0" prefWidth="56.0" sortable="false" text="A" />
+            <TableColumn fx:id="reservStation5Busy" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" resizable="false" sortable="false" text="Busy" />
+         </columns>
+      </TableView>
+      <TableView fx:id="reservStation6" layoutX="337.0" layoutY="429.0" prefHeight="100.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="reservStation6Inst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="reservStation6Op" editable="false" maxWidth="54.0" minWidth="54.0" prefWidth="54.0" resizable="false" sortable="false" text="Op" />
+            <TableColumn fx:id="reservStation6Vj" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" resizable="false" sortable="false" text="Vj" />
+            <TableColumn fx:id="reservStation6Vk" editable="false" maxWidth="75.0" minWidth="75.0" prefWidth="75.0" sortable="false" text="Vk" />
+            <TableColumn fx:id="reservStation6Qj" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qj" />
+            <TableColumn fx:id="reservStation6Qk" editable="false" maxWidth="65.0" minWidth="65.0" prefWidth="65.0" resizable="false" sortable="false" text="Qk" />
+            <TableColumn fx:id="reservStation6A" editable="false" maxWidth="56.0" minWidth="56.0" prefWidth="56.0" resizable="false" sortable="false" text="A" />
+            <TableColumn fx:id="reservStation6Busy" editable="false" maxWidth="50.0" minWidth="50.0" prefWidth="50.0" sortable="false" text="Busy" />
+         </columns>
+      </TableView>
+      <TableView fx:id="instructionMemory" layoutX="-23.0" layoutY="-27.0" prefHeight="630.0" prefWidth="193.0" scaleX="0.65" scaleY="0.62">
+         <columns>
+            <TableColumn fx:id="instructionMemoryInst" editable="false" prefWidth="35.0" sortable="false" text="Inst" />
+            <TableColumn fx:id="instructionMemoryProgLine" editable="false" prefWidth="135.71429061889648" sortable="false" text="ProgLine" />
+         </columns>
+      </TableView>
+      <TableView fx:id="instructionQueue" layoutX="106.0" layoutY="188.0" prefHeight="320.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="instructionQueueInst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="instructionQueueOp" editable="false" maxWidth="54.0" minWidth="56.0" prefWidth="55.0" resizable="false" sortable="false" text="Op" />
+            <TableColumn fx:id="instructionQueueRd" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" text="Rd" />
+            <TableColumn fx:id="instructionQueueRs" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" text="Rs" />
+            <TableColumn fx:id="instructionQueueRt" editable="false" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" sortable="false" text="Rt" />
+            <TableColumn fx:id="instructionQueueIm" maxWidth="40.0" minWidth="40.0" prefWidth="40.0" resizable="false" text="Im" />
+         </columns>
+      </TableView>
+      <TableView fx:id="registerFile" layoutX="195.0" layoutY="61.0" prefHeight="168.0" prefWidth="229.0" scaleX="0.65" scaleY="0.6">
+         <columns>
+            <TableColumn fx:id="registerFileReg" editable="false" prefWidth="49.0" sortable="false" text="Reg" />
+            <TableColumn fx:id="registerFileV" editable="false" prefWidth="42.0" sortable="false" text="V" />
+            <TableColumn fx:id="registerFileQi" editable="false" prefWidth="71.0" sortable="false" text="Qi" />
+            <TableColumn fx:id="registerFileValid" editable="false" prefWidth="47.0" sortable="false" text="Valid" />
+         </columns>
+      </TableView>
+      <TableView fx:id="reorderBuffer" layoutX="808.0" prefHeight="604.0" scaleX="0.65" scaleY="0.62">
+         <columns>
+            <TableColumn fx:id="reorderBufferId" maxWidth="32.0" minWidth="32.0" prefWidth="32.0" resizable="false" text="Id" />
+            <TableColumn fx:id="reorderBufferInst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
+            <TableColumn fx:id="reorderBufferType" editable="false" maxWidth="54.0" minWidth="54.0" prefWidth="54.0" resizable="false" sortable="false" text="Type" />
+            <TableColumn fx:id="reorderBufferD" editable="false" maxWidth="150.0" minWidth="115.0" prefWidth="115.0" sortable="false" text="D" />
+            <TableColumn fx:id="reorderBufferV" editable="false" maxWidth="150.0" minWidth="115.0" prefWidth="115.0" sortable="false" text="V" />
+            <TableColumn fx:id="reorderBufferReady" editable="false" maxWidth="52.0" minWidth="52.0" prefWidth="52.0" resizable="false" sortable="false" text="Ready" />
+         </columns>
+      </TableView>
+      <MenuBar prefHeight="29.0" prefWidth="1280.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <MenuItem fx:id="menuOpenFile" mnemonicParsing="false" onAction="#menuFileOpenButtonAction" text="Open Program" />
+              <MenuItem fx:id="menuClose" mnemonicParsing="false" onAction="#menuExit" text="Close" />
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Configuration">
+               <items>
+                  <Menu mnemonicParsing="false" text="Operational Units">
+                    <items>
+                        <CheckMenuItem fx:id="menuSecondALU" mnemonicParsing="false" onAction="#secondALUCheck" selected="true" text="Second ALU Unit" />
+                        <CheckMenuItem fx:id="menuSecondFP" mnemonicParsing="false" onAction="#secondFPCheck" selected="true" text="Second FP Unit" />
+                        <CheckMenuItem fx:id="menuSecondMEM" mnemonicParsing="false" onAction="#secondMEMCheck" selected="true" text="Second Memory Unit" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <RadioMenuItem fx:id="menu2LineRS" mnemonicParsing="false" onAction="#rS2lineNumCheck" text="2-line Buffer">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="resStationLines" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="menu3LineRS" mnemonicParsing="false" onAction="#rS3lineNumCheck" selected="true" text="3-line Buffer" toggleGroup="$resStationLines" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Ways">
+                    <items>
+                        <RadioMenuItem fx:id="menu1WayPipeline" mnemonicParsing="false" onAction="#oneWayNumCheck" selected="true" text="1-way Pipeline">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="ways" />
+                           </toggleGroup>
+                        </RadioMenuItem>
+                        <RadioMenuItem fx:id="menu2WayPipeline" mnemonicParsing="false" onAction="#twoWayNumCheck" text="2-way Pipeline" toggleGroup="$ways" />
+                        <RadioMenuItem fx:id="menu4WayPipeline" mnemonicParsing="false" onAction="#fourWayNumCheck" text="4-way Pipeline" toggleGroup="$ways" />
+                    </items>
+                  </Menu>
+               </items>
+          </Menu>
+            <Menu mnemonicParsing="false" text="Run">
+              <items>
+                <MenuItem fx:id="menuNext" mnemonicParsing="false" onAction="#nextCommandCheckMenu" text="Next" />
+              </items>
+            </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem fx:id="menuHelp" mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+      <Label fx:id="labelFP1" alignment="CENTER" layoutX="776.0" layoutY="256.0" text="FP1" />
+      <Label fx:id="labelFP2" alignment="CENTER" layoutX="776.0" layoutY="323.0" text="FP2" />
+      <Label fx:id="labelMEM2" alignment="CENTER" layoutX="742.0" layoutY="462.0" text="LOAD/STORE2" />
+      <Label fx:id="labelMEM1" alignment="CENTER" layoutX="740.0" layoutY="395.0" text="LOAD/STORE1" />
+      <Label fx:id="labelALU1" alignment="CENTER" layoutX="770.0" layoutY="122.0" text="ALU1" />
+      <Label fx:id="labelALU2" alignment="CENTER" layoutX="770.0" layoutY="188.0" text="ALU2" />
+      <Label fx:id="labelEstagioALU1" alignment="CENTER" layoutX="769.0" layoutY="149.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioALU2" alignment="CENTER" layoutX="769.0" layoutY="215.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioFP12" alignment="CENTER" layoutX="771.0" layoutY="281.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioFP13" alignment="CENTER" layoutX="810.0" layoutY="281.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioFP11" alignment="CENTER" layoutX="734.0" layoutY="281.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioFP23" alignment="CENTER" layoutX="810.0" layoutY="348.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioFP22" alignment="CENTER" layoutX="773.0" layoutY="348.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioFP21" alignment="CENTER" layoutX="734.0" layoutY="348.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioMEM1" alignment="CENTER" layoutX="770.0" layoutY="418.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+      <Label fx:id="labelEstagioMEM2" alignment="CENTER" layoutX="770.0" layoutY="485.0" prefHeight="9.0" prefWidth="34.0" text="I9" />
+   </children>
+</Pane>
