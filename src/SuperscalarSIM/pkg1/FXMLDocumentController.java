@@ -404,9 +404,9 @@ public class FXMLDocumentController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         //Desenho de Fundo
-        Image imagem = new Image("/resources/FUNDO4.png");
+        Image imagem = new Image("resources/FUNDO4.png");
         fundo.setImage(imagem);
-               
+
         // Labels
         labelCycles.setText("Cycles: " + currentCycle);
         labelEstagioALU1.setText("");
@@ -799,7 +799,7 @@ void animationUpdade(){
             menuOpenFile.setDisable(true);
         }
         else {
-            System.out.println("Erro ao abrir: " + selectedFile.getAbsolutePath());
+            System.out.println("Nenhum arquivo foi selecionado");
         }
         
     }
