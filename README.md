@@ -15,6 +15,10 @@ eduardo.gregorio@sga.pucminas.br
 
 ## How to use it
 
+#### Requiremens
+
+- Java 10 or lower
+
 #### Starting the Simulator
 You can use one of the scripts in this folder to run, compile or build the entire project. The .ps1 files are Windows/PowerShell scripts but can be executed in Linux. (except build script). There's also available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can either run it from terminal.
 

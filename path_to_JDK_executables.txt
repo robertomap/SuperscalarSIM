@@ -1,0 +1,7 @@
+javac
+java
+jar
+
+# line 1 -> path to javac executable
+# line 2 -> path to java executable
+# line 3 -> path to jar executable
