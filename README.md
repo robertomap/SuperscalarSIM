@@ -16,7 +16,7 @@ eduardo.gregorio@sga.pucminas.br
 ## How to use it
 
 #### Starting the Simulator
-Although you can compile it from source, it's also available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can either run it from terminal.
+You can use one of the scripts in this folder to run, compile or build the entire project. The .ps1 files are Windows/PowerShell scripts but can be executed in Linux. (except build script). There's also available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can either run it from terminal.
 
 ```sh
  $ java -jar dist/SuperscalarSIM.jar 
