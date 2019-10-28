@@ -38,7 +38,7 @@ import javafx.beans.property.StringProperty;
  * @author roberto
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     // Desenho de Fundo
     
     @FXML
@@ -68,7 +68,9 @@ public class FXMLDocumentController implements Initializable {
     private RadioMenuItem menu4WayPipeline;
     
     // Functional Units Animation
-    
+
+    @FXML
+    private Label labelCycles;
     @FXML
     private Label labelALU1;
     @FXML
@@ -406,6 +408,7 @@ public class FXMLDocumentController implements Initializable {
         fundo.setImage(imagem);
                
         // Labels
+        labelCycles.setText("Cycles: " + currentCycle);
         labelEstagioALU1.setText("");
         labelEstagioALU2.setText("");
         labelEstagioFP11.setText("");
@@ -652,49 +655,50 @@ public class FXMLDocumentController implements Initializable {
     }
     
     public void nextCommandFunc(){
-        
-        // Inibe selecoes
-        menuSecondALU.setDisable(true);
-        menuSecondMEM.setDisable(true);
-        menuSecondFP.setDisable(true);
-        menu2LineRS.setDisable(true);
-        menu3LineRS.setDisable(true);
-        menu1WayPipeline.setDisable(true);
-        menu2WayPipeline.setDisable(true);
-        menu4WayPipeline.setDisable(true);
-                
-        //Avança ciclo
-        currentCycle++;
-        
-        
-        //Etapas Executadas na Primeira Metade do Ciclo (Rizing Edge)
 
-        if(currentCycle>=5){
-            commitStage();
+        if (!listMEM.isEmpty()){
+            // Inibe selecoes
+            menuSecondALU.setDisable(true);
+            menuSecondMEM.setDisable(true);
+            menuSecondFP.setDisable(true);
+            menu2LineRS.setDisable(true);
+            menu3LineRS.setDisable(true);
+            menu1WayPipeline.setDisable(true);
+            menu2WayPipeline.setDisable(true);
+            menu4WayPipeline.setDisable(true);
+
+            //Avança ciclo
+            currentCycle++;
+            labelCycles.setText("Cycles: " + currentCycle);
+
+            //Etapas Executadas na Primeira Metade do Ciclo (Rizing Edge)
+
+            if(currentCycle>=5){
+                commitStage();
+            }
+
+            if(currentCycle>=4){
+                executeStage();
+            }
+
+            if(currentCycle>=2){
+                decodeStage();
+            }
+
+            fetchStage();
+
+            //Etapas Executadas na Segunda Metade do Ciclo (Falling Edge)
+
+            if(currentCycle>=3){
+                issueStage();
+            }
+
+            if(currentCycle>=2){
+                decodeDispatchStage();
+            }
+
+            fetchIQStage();
         }
-
-        if(currentCycle>=4){
-            executeStage();
-        }
-
-        if(currentCycle>=2){
-            decodeStage();
-        }
-
-        fetchStage();
-
-        //Etapas Executadas na Segunda Metade do Ciclo (Falling Edge)
-
-        if(currentCycle>=3){
-            issueStage();
-        }
-
-        if(currentCycle>=2){
-            decodeDispatchStage();
-        }
-
-        fetchIQStage();
-
     }
     
     @FXML
