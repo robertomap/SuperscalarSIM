@@ -19,8 +19,11 @@ eduardo.gregorio@sga.pucminas.br
 
 - Java 10 or lower
 
+#### Compiling, Building and Running the project
+You can use the scripts in this folder to run, compile or build the entire project. Use the PowerShell scripts (.ps1 files) for Windows and the .sh files for UNIX. To execute the PowerShell scripts, you need to open PowerShell and execute this command: ```Set-ExecutionPolicy Bypass Process```.
+
 #### Starting the Simulator
-You can use one of the scripts in this folder to run, compile or build the entire project. The .ps1 files are Windows/PowerShell scripts but can be executed in Linux. (except build script). There's also available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can either run it from terminal.
+There's available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can either run it from terminal.
 
 ```sh
  $ java -jar dist/SuperscalarSIM.jar 
