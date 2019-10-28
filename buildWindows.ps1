@@ -16,6 +16,6 @@ echo "Generating .jar file ..."
 
 # Executa-o
 echo "Executing ..."
-pushd src
+pushd bin
 & "$java_exe" -jar ../SuperscalarSIM.jar
 popd
