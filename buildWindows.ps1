@@ -1,8 +1,11 @@
 Set-ExecutionPolicy Bypass Process
 
+$java_exe="$( (gc path_to_JDK_executables.txt)[1] )"
+$jar_exe="$( (gc path_to_JDK_executables.txt)[2] )"
+
 # Compila o código
 echo "Compiling the code ..."
-./compile.ps1
+./compileWindows.ps1
 
 # Cria o manifesto
 echo "Creating manifest.mf ..."
@@ -11,10 +14,10 @@ Class-Path: bin/" | Out-File -Encoding Default manifest.mf
 
 # Gera o .jar
 echo "Generating .jar file ..."
-jar vcfm SuperscalarSIM.jar manifest.mf -C bin/ .
+& "$jar_exe" vcfm SuperscalarSIM.jar manifest.mf -C bin/ .
 
 # Executa-o
 echo "Executing ..."
 pushd src
-java -jar ../SuperscalarSIM.jar
+& "$java_exe" -jar ../SuperscalarSIM.jar
 popd
