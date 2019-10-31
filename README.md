@@ -26,7 +26,7 @@ You can use the scripts in this folder to run, compile or build the entire proje
 
 
 #### Starting the Simulator
-There's available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can also run it from the command line.
+There's a JRE 8 compiled binary available in the **dist** folder. To use it, just double click the **SuperscalarSIM.jar** file. You can also run it from the command line.
 
 ```sh
  $ java -jar dist/SuperscalarSIM.jar 
