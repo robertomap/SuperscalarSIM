@@ -653,6 +653,18 @@ public class FXMLDocumentController implements Initializable {
             nextCommandStated = false;
         }
     }
+
+    public boolean simulationEnded()
+    {
+        return currentCycle > 0 && listIQ.isEmpty() && listROB.isEmpty();
+    }
+
+    public void resetSimulation()
+    {
+        listIQcurrentPos = 0;
+        listMEMcurrentPos = 0;
+        currentCycle = 0;
+    }
     
     public void nextCommandFunc(){
 
@@ -667,9 +679,12 @@ public class FXMLDocumentController implements Initializable {
             menu2WayPipeline.setDisable(true);
             menu4WayPipeline.setDisable(true);
 
-            //Avança ciclo
-            currentCycle++;
-            labelCycles.setText("Cycles: " + currentCycle);
+            // Checa se a simulação terminou
+            if (!simulationEnded())
+            {
+                currentCycle++;
+                labelCycles.setText("Cycles: " + currentCycle);
+            }
 
             //Etapas Executadas na Primeira Metade do Ciclo (Rizing Edge)
 
@@ -706,49 +721,51 @@ public class FXMLDocumentController implements Initializable {
         System.exit(0);
     }
 
-void animationUpdade(){
-        
-    observableListentryMEM = FXCollections.observableArrayList(listMEM);
-    instructionMemory.setItems(observableListentryMEM);
-    instructionMemory.refresh();
+    void animationUpdade(){
+            
+        observableListentryMEM = FXCollections.observableArrayList(listMEM);
+        instructionMemory.setItems(observableListentryMEM);
+        instructionMemory.refresh();
 
-    observableListentryIQ = FXCollections.observableArrayList(listIQ);
-    instructionQueue.setItems(observableListentryIQ);
-    instructionQueue.refresh();
+        observableListentryIQ = FXCollections.observableArrayList(listIQ);
+        instructionQueue.setItems(observableListentryIQ);
+        instructionQueue.refresh();
 
-    observableListentryREG = FXCollections.observableArrayList(listREG);
-    registerFile.setItems(observableListentryREG);
-    registerFile.refresh();
+        observableListentryREG = FXCollections.observableArrayList(listREG);
+        registerFile.setItems(observableListentryREG);
+        registerFile.refresh();
 
-    observableListentryRS1 = FXCollections.observableArrayList(listRS1ALU);
-    reservStation1.setItems(observableListentryRS1);
-    reservStation1.refresh();
+        observableListentryRS1 = FXCollections.observableArrayList(listRS1ALU);
+        reservStation1.setItems(observableListentryRS1);
+        reservStation1.refresh();
 
-    observableListentryRS2 = FXCollections.observableArrayList(listRS2ALU);
-    reservStation2.setItems(observableListentryRS2);
-    reservStation2.refresh();
+        observableListentryRS2 = FXCollections.observableArrayList(listRS2ALU);
+        reservStation2.setItems(observableListentryRS2);
+        reservStation2.refresh();
 
-    observableListentryRS3 = FXCollections.observableArrayList(listRS1FP);
-    reservStation3.setItems(observableListentryRS3);
-    reservStation3.refresh();
+        observableListentryRS3 = FXCollections.observableArrayList(listRS1FP);
+        reservStation3.setItems(observableListentryRS3);
+        reservStation3.refresh();
 
-    observableListentryRS4 = FXCollections.observableArrayList(listRS2FP);
-    reservStation4.setItems(observableListentryRS4);
-    reservStation4.refresh();
+        observableListentryRS4 = FXCollections.observableArrayList(listRS2FP);
+        reservStation4.setItems(observableListentryRS4);
+        reservStation4.refresh();
 
-    observableListentryRS5 = FXCollections.observableArrayList(listRS1MEM);
-    reservStation5.setItems(observableListentryRS5);
-    reservStation5.refresh();
+        observableListentryRS5 = FXCollections.observableArrayList(listRS1MEM);
+        reservStation5.setItems(observableListentryRS5);
+        reservStation5.refresh();
 
-    observableListentryRS6 = FXCollections.observableArrayList(listRS2MEM);
-    reservStation6.setItems(observableListentryRS6);
-    reservStation6.refresh();
+        observableListentryRS6 = FXCollections.observableArrayList(listRS2MEM);
+        reservStation6.setItems(observableListentryRS6);
+        reservStation6.refresh();
 
-    observableListentryROB = FXCollections.observableArrayList(listROB);
-    reorderBuffer.setItems(observableListentryROB);
-    reorderBuffer.refresh();
+        observableListentryROB = FXCollections.observableArrayList(listROB);
+        reorderBuffer.setItems(observableListentryROB);
+        reorderBuffer.refresh();
 
-}
+        labelCycles.setText("Cycles: " + currentCycle);
+
+    }
 
     
     
@@ -775,6 +792,7 @@ void animationUpdade(){
                 File fin = new File(selectedFile.getAbsolutePath());
                 FileReader fr = new FileReader(fin);
                 BufferedReader br = new BufferedReader(fr);
+                listMEM.clear();
                 
                 // enquanto não for fim de arquivo le 
                 while(br.ready()){
@@ -790,13 +808,14 @@ void animationUpdade(){
 
                 br.close();
 
+                resetSimulation();
                 animationUpdade();
 
             }catch(IOException ioe){
                 ioe.printStackTrace();
             }
             
-            menuOpenFile.setDisable(true);
+            // menuOpenFile.setDisable(true);
         }
         else {
             System.out.println("Nenhum arquivo foi selecionado");
@@ -1748,7 +1767,7 @@ void animationUpdade(){
         
         int currentWay = 1;
         int currentROBitem = 0;
-                
+        
         while (currentROBitem < listROB.size()) {
             
             if (currentWay > wayNumber)
@@ -1788,7 +1807,7 @@ void animationUpdade(){
                 currentROBitem++;
             }
 
-        } 
+        }
 
         //Ler buffer de leitura
 
