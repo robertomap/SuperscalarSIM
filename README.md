@@ -20,10 +20,13 @@ eduardo.gregorio@sga.pucminas.br
 - Java 10 or lower
 
 #### Compiling, Building and Running the project
+You need to set your java executable locations in the **path_to_JDK_executables.txt** file to the apropriate ones. (If the latest java version you have installed is less or equal to version 10, ignore this step.)
+
 You can use the scripts in this folder to run, compile or build the entire project. Use the PowerShell scripts (.ps1 files) for Windows and the .sh files for UNIX. To execute the PowerShell scripts, you need to open PowerShell and execute this command: ```Set-ExecutionPolicy Bypass Process```.
 
+
 #### Starting the Simulator
-There's available a JRE 8 compiled version in the **dist** folder. To use it just double click on the **SuperscalarSIM.jar**. You can either run it from terminal.
+There's a JRE 8 compiled binary available in the **dist** folder. To use it, just double click the **SuperscalarSIM.jar** file. You can also run it from the command line.
 
 ```sh
  $ java -jar dist/SuperscalarSIM.jar 
