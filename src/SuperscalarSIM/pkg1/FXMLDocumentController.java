@@ -23,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.stage.FileChooser;
+import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -398,7 +399,12 @@ public class FXMLDocumentController implements Initializable {
     List<EntryRS> listRS1MEM = new ArrayList<>();
     List<EntryRS> listRS2MEM = new ArrayList<>();
     int listRSMaxSize = 3;
-
+    
+    public void setCycle(int cycle)
+    {
+        currentCycle = cycle;
+        labelCycles.setText("Cycles: " + currentCycle);
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -408,7 +414,6 @@ public class FXMLDocumentController implements Initializable {
         fundo.setImage(imagem);
 
         // Labels
-        labelCycles.setText("Cycles: " + currentCycle);
         labelEstagioALU1.setText("");
         labelEstagioALU2.setText("");
         labelEstagioFP11.setText("");
@@ -536,7 +541,7 @@ public class FXMLDocumentController implements Initializable {
         for(int i=0; i<(listREGMaxSize/2); i++){
             listREG.add(new EntryREG(i, "R"+i, "V",  "", "Y"));
         }
-                
+        
         observableListentryREG = FXCollections.observableArrayList(listREG);
         registerFile.setItems(observableListentryREG);
 
@@ -653,6 +658,14 @@ public class FXMLDocumentController implements Initializable {
             nextCommandStated = false;
         }
     }
+    
+    @FXML
+    public void runCommandCheckButton(ActionEvent event){
+        while (!simulationEnded())
+        {
+            nextCommandCheckButton(event);
+        }
+    }
 
     public boolean simulationEnded()
     {
@@ -663,7 +676,7 @@ public class FXMLDocumentController implements Initializable {
     {
         listIQcurrentPos = 0;
         listMEMcurrentPos = 0;
-        currentCycle = 0;
+        setCycle(0);
 
         // Re-enable architecture configuration menu
         menuSecondALU.setDisable(false);
@@ -678,7 +691,14 @@ public class FXMLDocumentController implements Initializable {
     
     public void nextCommandFunc(){
 
-        if (!listMEM.isEmpty()){
+        if (simulationEnded())
+        {
+            // 0 = yes, 1 = no, 2 = cancel
+            if (JOptionPane.showConfirmDialog(null, "Do you want to restart simulation ?") == 0)
+                resetSimulation();
+        }
+
+        else if (!listMEM.isEmpty()){
             // Inibe selecoes
             menuSecondALU.setDisable(true);
             menuSecondMEM.setDisable(true);
@@ -690,11 +710,7 @@ public class FXMLDocumentController implements Initializable {
             menu4WayPipeline.setDisable(true);
 
             // Checa se a simulação terminou
-            if (!simulationEnded())
-            {
-                currentCycle++;
-                labelCycles.setText("Cycles: " + currentCycle);
-            }
+            if (!simulationEnded()) setCycle(currentCycle + 1);
 
             //Etapas Executadas na Primeira Metade do Ciclo (Rizing Edge)
 
@@ -772,9 +788,6 @@ public class FXMLDocumentController implements Initializable {
         observableListentryROB = FXCollections.observableArrayList(listROB);
         reorderBuffer.setItems(observableListentryROB);
         reorderBuffer.refresh();
-
-        labelCycles.setText("Cycles: " + currentCycle);
-
     }
 
     
@@ -1005,11 +1018,11 @@ public class FXMLDocumentController implements Initializable {
             if(listROBcurrentPos < listROBMaxSize) {
 
                 int instrDecoder = listIQ.get(0).getInst();
-		String opDecoder = listIQ.get(0).getOp();
-		String rdDecoder = listIQ.get(0).getRd();
-		String rsDecoder = listIQ.get(0).getRs();
-		String rtDecoder = listIQ.get(0).getRt();
-		int imDecoder = listIQ.get(0).getIm();
+                String opDecoder = listIQ.get(0).getOp();
+                String rdDecoder = listIQ.get(0).getRd();
+                String rsDecoder = listIQ.get(0).getRs();
+                String rtDecoder = listIQ.get(0).getRt();
+                int imDecoder = listIQ.get(0).getIm();
                 String type;
 
                 if(opDecoder.equals("ADD") || opDecoder.equals("ADDi") || opDecoder.equals("SUB") || opDecoder.equals("SUBi")) {
