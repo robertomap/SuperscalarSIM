@@ -1,3 +1,4 @@
+#!/bin/sh
 javac_exe=$(sed '1!d' path_to_JDK_executables.txt)
 
 mkdir bin

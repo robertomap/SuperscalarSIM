@@ -1,3 +1,4 @@
+#!/bin/sh
 java_exe=$(sed '2!d' path_to_JDK_executables.txt)
 jar_exe=$(sed '3!d' path_to_JDK_executables.txt)
 
