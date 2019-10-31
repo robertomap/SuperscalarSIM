@@ -665,8 +665,8 @@ public class FXMLDocumentController implements Initializable {
         listMEMcurrentPos = 0;
         currentCycle = 0;
 
-		// Re-enable architecture configuration menu
-		menuSecondALU.setDisable(false);
+        // Re-enable architecture configuration menu
+        menuSecondALU.setDisable(false);
         menuSecondMEM.setDisable(false);
         menuSecondFP.setDisable(false);
         menu2LineRS.setDisable(false);
