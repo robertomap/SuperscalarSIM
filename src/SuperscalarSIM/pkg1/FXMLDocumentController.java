@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -301,7 +302,14 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EntryROB, String> reorderBufferV;
     @FXML
     private TableColumn<EntryROB, String> reorderBufferReady;
+
+    // Botões
     
+    @FXML
+    private Button botaoNext;
+    
+    @FXML
+    private Button botaoRun;
 
     // Cada tabela é associada a uma lista
     
@@ -658,12 +666,31 @@ public class FXMLDocumentController implements Initializable {
             nextCommandStated = false;
         }
     }
+
+    public void confirmSimulationReset()
+    {
+    	botaoNext.setDisable(true);
+    	botaoRun.setDisable(true);
+    	
+        // 0 = yes, 1 = no, 2 = cancel
+        if (JOptionPane.showConfirmDialog(null, "Do you want to restart simulation ?") == 0)
+            resetSimulation();
+
+    	botaoNext.setDisable(false);
+    	botaoRun.setDisable(false);
+    }
     
     @FXML
     public void runCommandCheckButton(ActionEvent event){
-        while (!simulationEnded())
+
+        if (simulationEnded()) confirmSimulationReset();
+
+        else
         {
-            nextCommandCheckButton(event);
+            while (!simulationEnded())
+            {
+                nextCommandCheckButton(event);
+            }
         }
     }
 
@@ -691,12 +718,7 @@ public class FXMLDocumentController implements Initializable {
     
     public void nextCommandFunc(){
 
-        if (simulationEnded())
-        {
-            // 0 = yes, 1 = no, 2 = cancel
-            if (JOptionPane.showConfirmDialog(null, "Do you want to restart simulation ?") == 0)
-                resetSimulation();
-        }
+        if (simulationEnded()) confirmSimulationReset();
 
         else if (!listMEM.isEmpty()){
             // Inibe selecoes
