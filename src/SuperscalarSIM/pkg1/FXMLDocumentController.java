@@ -23,6 +23,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.FileChooser;
 import javax.swing.JOptionPane;
 import java.io.BufferedReader;
@@ -68,6 +71,10 @@ public class FXMLDocumentController implements Initializable {
     private RadioMenuItem menu2WayPipeline;
     @FXML
     private RadioMenuItem menu4WayPipeline;
+    @FXML
+    private MenuItem menuNext;
+    @FXML
+    private MenuItem menuRun;
     
     // Functional Units Animation
 
@@ -420,6 +427,14 @@ public class FXMLDocumentController implements Initializable {
         //Desenho de Fundo
         Image imagem = new Image("resources/FUNDO4.png");
         fundo.setImage(imagem);
+        
+        // Menus key combinations
+        
+        menuOpenFile.setAccelerator( new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN) );
+        menuNext.setAccelerator( new KeyCodeCombination(KeyCode.N) );
+        menuRun.setAccelerator( new KeyCodeCombination(KeyCode.R) );
+        
+        // Buttons key combinations
 
         // Labels
         labelEstagioALU1.setText("");

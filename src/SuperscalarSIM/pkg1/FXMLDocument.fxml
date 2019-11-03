@@ -179,6 +179,7 @@
             <Menu mnemonicParsing="false" text="Run">
               <items>
                 <MenuItem fx:id="menuNext" mnemonicParsing="false" onAction="#nextCommandCheckMenu" text="Next" />
+                <MenuItem fx:id="menuRun" mnemonicParsing="false" onAction="#runCommandCheckButton" text="Run" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
