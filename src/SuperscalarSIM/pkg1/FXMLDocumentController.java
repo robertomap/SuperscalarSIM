@@ -348,6 +348,8 @@ public class FXMLDocumentController implements Initializable {
    
 //    private final List<EntryROB> listentryROB = new ArrayList();
     private ObservableList<EntryROB> observableListentryROB;
+    
+    private static String lastVisitedDirectory = System.getProperty("user.home");
    
     
 
@@ -841,7 +843,9 @@ public class FXMLDocumentController implements Initializable {
         int contInstrucoes = 0;
 
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory( new File(lastVisitedDirectory) );
         File selectedFile = fileChooser.showOpenDialog(null);
+        lastVisitedDirectory = selectedFile != null ? selectedFile.getParent() : lastVisitedDirectory;
         
         if (selectedFile != null) {
 
