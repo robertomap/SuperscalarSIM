@@ -695,9 +695,7 @@ public class FXMLDocumentController implements Initializable {
     	
     	alert.showAndWait();
     	
-        // 0 = yes, 1 = no, 2 = cancel
-        if (alert.getResult() == ButtonType.YES)
-            resetSimulation();
+        if (alert.getResult() == ButtonType.YES) resetSimulation();
 
     	botaoNext.setDisable(false);
     	botaoRun.setDisable(false);
