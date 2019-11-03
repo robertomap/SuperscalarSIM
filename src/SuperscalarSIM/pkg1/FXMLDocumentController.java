@@ -13,7 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -27,7 +30,6 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.stage.FileChooser;
-import javax.swing.JOptionPane;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -435,8 +437,6 @@ public class FXMLDocumentController implements Initializable {
         menuOpenFile.setAccelerator( new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN) );
         menuNext.setAccelerator( new KeyCodeCombination(KeyCode.N) );
         menuRun.setAccelerator( new KeyCodeCombination(KeyCode.R) );
-        
-        // Buttons key combinations
 
         // Labels
         labelEstagioALU1.setText("");
@@ -689,8 +689,14 @@ public class FXMLDocumentController implements Initializable {
     	botaoNext.setDisable(true);
     	botaoRun.setDisable(true);
     	
+    	Alert alert = new Alert(
+    		AlertType.CONFIRMATION, "Do you want to restart simulation?",
+    		ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+    	
+    	alert.showAndWait();
+    	
         // 0 = yes, 1 = no, 2 = cancel
-        if (JOptionPane.showConfirmDialog(null, "Do you want to restart simulation ?") == 0)
+        if (alert.getResult() == ButtonType.YES)
             resetSimulation();
 
     	botaoNext.setDisable(false);
