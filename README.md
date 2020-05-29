@@ -17,7 +17,7 @@ eduardo.gregorio@sga.pucminas.br
 
 #### Requiremens
 
-- Java 10 or lower
+- Java 10 or lower or you can install JavaFX and integrate it with recent Java versions.
 
 #### Compiling, Building and Running the project
 You need to set your java executable locations in the **path_to_JDK_executables.txt** file to the apropriate ones. (If the latest java version you have installed is less or equal to version 10, ignore this step.)
