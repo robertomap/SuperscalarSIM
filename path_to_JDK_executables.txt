@@ -5,3 +5,5 @@ jar
 # line 1 -> path to javac executable
 # line 2 -> path to java executable
 # line 3 -> path to jar executable
+# You don't need to specify a path like /usr/bin/javac if you have javac, java and jar in your PATH
+# But you can specify if you wanna use a different version of Java.
