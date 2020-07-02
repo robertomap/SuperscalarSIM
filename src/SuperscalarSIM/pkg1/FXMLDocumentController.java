@@ -13,6 +13,10 @@ import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.CheckMenuItem;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
@@ -22,6 +26,9 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.FileChooser;
 import java.io.BufferedReader;
 import java.io.File;
@@ -38,7 +45,7 @@ import javafx.beans.property.StringProperty;
  * @author roberto
  */
 public class FXMLDocumentController implements Initializable {
-    
+
     // Desenho de Fundo
     
     @FXML
@@ -66,9 +73,15 @@ public class FXMLDocumentController implements Initializable {
     private RadioMenuItem menu2WayPipeline;
     @FXML
     private RadioMenuItem menu4WayPipeline;
+    @FXML
+    private MenuItem menuNext;
+    @FXML
+    private MenuItem menuRun;
     
     // Functional Units Animation
-    
+
+    @FXML
+    private Label labelCycles;
     @FXML
     private Label labelALU1;
     @FXML
@@ -298,7 +311,14 @@ public class FXMLDocumentController implements Initializable {
     private TableColumn<EntryROB, String> reorderBufferV;
     @FXML
     private TableColumn<EntryROB, String> reorderBufferReady;
+
+    // Botões
     
+    @FXML
+    private Button botaoNext;
+    
+    @FXML
+    private Button botaoRun;
 
     // Cada tabela é associada a uma lista
     
@@ -330,6 +350,8 @@ public class FXMLDocumentController implements Initializable {
    
 //    private final List<EntryROB> listentryROB = new ArrayList();
     private ObservableList<EntryROB> observableListentryROB;
+    
+    private static String lastVisitedDirectory = System.getProperty("user.home");
    
     
 
@@ -396,15 +418,26 @@ public class FXMLDocumentController implements Initializable {
     List<EntryRS> listRS1MEM = new ArrayList<>();
     List<EntryRS> listRS2MEM = new ArrayList<>();
     int listRSMaxSize = 3;
-
+    
+    public void setCycle(int cycle)
+    {
+        currentCycle = cycle;
+        labelCycles.setText("Cycles: " + currentCycle);
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         //Desenho de Fundo
-        Image imagem = new Image("/resources/FUNDO4.png");
+        Image imagem = new Image("resources/FUNDO4.png");
         fundo.setImage(imagem);
-               
+        
+        // Menus key combinations
+        
+        menuOpenFile.setAccelerator( new KeyCodeCombination(KeyCode.O, KeyCombination.CONTROL_DOWN) );
+        menuNext.setAccelerator( new KeyCodeCombination(KeyCode.N) );
+        menuRun.setAccelerator( new KeyCodeCombination(KeyCode.R) );
+
         // Labels
         labelEstagioALU1.setText("");
         labelEstagioALU2.setText("");
@@ -533,7 +566,7 @@ public class FXMLDocumentController implements Initializable {
         for(int i=0; i<(listREGMaxSize/2); i++){
             listREG.add(new EntryREG(i, "R"+i, "V",  "", "Y"));
         }
-                
+        
         observableListentryREG = FXCollections.observableArrayList(listREG);
         registerFile.setItems(observableListentryREG);
 
@@ -650,51 +683,106 @@ public class FXMLDocumentController implements Initializable {
             nextCommandStated = false;
         }
     }
+
+    public void confirmSimulationReset()
+    {
+    	botaoNext.setDisable(true);
+    	botaoRun.setDisable(true);
+    	
+    	Alert alert = new Alert(
+    		AlertType.CONFIRMATION, "Do you want to restart simulation?",
+    		ButtonType.YES, ButtonType.NO, ButtonType.CANCEL);
+    	
+    	alert.showAndWait();
+    	
+        if (alert.getResult() == ButtonType.YES) resetSimulation();
+
+    	botaoNext.setDisable(false);
+    	botaoRun.setDisable(false);
+    }
+    
+    @FXML
+    public void runCommandCheckButton(ActionEvent event){
+
+        if (simulationEnded()) confirmSimulationReset();
+
+        else
+        {
+            while (!simulationEnded())
+            {
+                nextCommandCheckButton(event);
+            }
+        }
+    }
+
+    public boolean simulationEnded()
+    {
+        return currentCycle > 0 && listIQ.isEmpty() && listROB.isEmpty();
+    }
+
+    public void resetSimulation()
+    {
+        listIQcurrentPos = 0;
+        listMEMcurrentPos = 0;
+        setCycle(0);
+
+        // Re-enable architecture configuration menu
+        menuSecondALU.setDisable(false);
+        menuSecondMEM.setDisable(false);
+        menuSecondFP.setDisable(false);
+        menu2LineRS.setDisable(false);
+        menu3LineRS.setDisable(false);
+        menu1WayPipeline.setDisable(false);
+        menu2WayPipeline.setDisable(false);
+        menu4WayPipeline.setDisable(false);
+    }
     
     public void nextCommandFunc(){
-        
-        // Inibe selecoes
-        menuSecondALU.setDisable(true);
-        menuSecondMEM.setDisable(true);
-        menuSecondFP.setDisable(true);
-        menu2LineRS.setDisable(true);
-        menu3LineRS.setDisable(true);
-        menu1WayPipeline.setDisable(true);
-        menu2WayPipeline.setDisable(true);
-        menu4WayPipeline.setDisable(true);
-                
-        //Avança ciclo
-        currentCycle++;
-        
-        
-        //Etapas Executadas na Primeira Metade do Ciclo (Rizing Edge)
 
-        if(currentCycle>=5){
-            commitStage();
+        if (simulationEnded()) confirmSimulationReset();
+
+        else if (!listMEM.isEmpty()){
+            // Inibe selecoes
+            menuSecondALU.setDisable(true);
+            menuSecondMEM.setDisable(true);
+            menuSecondFP.setDisable(true);
+            menu2LineRS.setDisable(true);
+            menu3LineRS.setDisable(true);
+            menu1WayPipeline.setDisable(true);
+            menu2WayPipeline.setDisable(true);
+            menu4WayPipeline.setDisable(true);
+
+            // Checa se a simulação terminou
+            if (!simulationEnded()) setCycle(currentCycle + 1);
+
+            //Etapas Executadas na Primeira Metade do Ciclo (Rizing Edge)
+
+            if(currentCycle>=5){
+                commitStage();
+            }
+
+            if(currentCycle>=4){
+                executeStage();
+            }
+
+            if(currentCycle>=2){
+                decodeStage();
+            }
+
+            fetchStage();
+
+            //Etapas Executadas na Segunda Metade do Ciclo (Falling Edge)
+
+            if(currentCycle>=3){
+                issueStage();
+            }
+
+            if(currentCycle>=2){
+                decodeDispatchStage();
+            }
+
+            fetchIQStage();
         }
-
-        if(currentCycle>=4){
-            executeStage();
-        }
-
-        if(currentCycle>=2){
-            decodeStage();
-        }
-
-        fetchStage();
-
-        //Etapas Executadas na Segunda Metade do Ciclo (Falling Edge)
-
-        if(currentCycle>=3){
-            issueStage();
-        }
-
-        if(currentCycle>=2){
-            decodeDispatchStage();
-        }
-
-        fetchIQStage();
-
     }
     
     @FXML
@@ -702,49 +790,48 @@ public class FXMLDocumentController implements Initializable {
         System.exit(0);
     }
 
-void animationUpdade(){
-        
-    observableListentryMEM = FXCollections.observableArrayList(listMEM);
-    instructionMemory.setItems(observableListentryMEM);
-    instructionMemory.refresh();
+    void animationUpdade(){
+            
+        observableListentryMEM = FXCollections.observableArrayList(listMEM);
+        instructionMemory.setItems(observableListentryMEM);
+        instructionMemory.refresh();
 
-    observableListentryIQ = FXCollections.observableArrayList(listIQ);
-    instructionQueue.setItems(observableListentryIQ);
-    instructionQueue.refresh();
+        observableListentryIQ = FXCollections.observableArrayList(listIQ);
+        instructionQueue.setItems(observableListentryIQ);
+        instructionQueue.refresh();
 
-    observableListentryREG = FXCollections.observableArrayList(listREG);
-    registerFile.setItems(observableListentryREG);
-    registerFile.refresh();
+        observableListentryREG = FXCollections.observableArrayList(listREG);
+        registerFile.setItems(observableListentryREG);
+        registerFile.refresh();
 
-    observableListentryRS1 = FXCollections.observableArrayList(listRS1ALU);
-    reservStation1.setItems(observableListentryRS1);
-    reservStation1.refresh();
+        observableListentryRS1 = FXCollections.observableArrayList(listRS1ALU);
+        reservStation1.setItems(observableListentryRS1);
+        reservStation1.refresh();
 
-    observableListentryRS2 = FXCollections.observableArrayList(listRS2ALU);
-    reservStation2.setItems(observableListentryRS2);
-    reservStation2.refresh();
+        observableListentryRS2 = FXCollections.observableArrayList(listRS2ALU);
+        reservStation2.setItems(observableListentryRS2);
+        reservStation2.refresh();
 
-    observableListentryRS3 = FXCollections.observableArrayList(listRS1FP);
-    reservStation3.setItems(observableListentryRS3);
-    reservStation3.refresh();
+        observableListentryRS3 = FXCollections.observableArrayList(listRS1FP);
+        reservStation3.setItems(observableListentryRS3);
+        reservStation3.refresh();
 
-    observableListentryRS4 = FXCollections.observableArrayList(listRS2FP);
-    reservStation4.setItems(observableListentryRS4);
-    reservStation4.refresh();
+        observableListentryRS4 = FXCollections.observableArrayList(listRS2FP);
+        reservStation4.setItems(observableListentryRS4);
+        reservStation4.refresh();
 
-    observableListentryRS5 = FXCollections.observableArrayList(listRS1MEM);
-    reservStation5.setItems(observableListentryRS5);
-    reservStation5.refresh();
+        observableListentryRS5 = FXCollections.observableArrayList(listRS1MEM);
+        reservStation5.setItems(observableListentryRS5);
+        reservStation5.refresh();
 
-    observableListentryRS6 = FXCollections.observableArrayList(listRS2MEM);
-    reservStation6.setItems(observableListentryRS6);
-    reservStation6.refresh();
+        observableListentryRS6 = FXCollections.observableArrayList(listRS2MEM);
+        reservStation6.setItems(observableListentryRS6);
+        reservStation6.refresh();
 
-    observableListentryROB = FXCollections.observableArrayList(listROB);
-    reorderBuffer.setItems(observableListentryROB);
-    reorderBuffer.refresh();
-
-}
+        observableListentryROB = FXCollections.observableArrayList(listROB);
+        reorderBuffer.setItems(observableListentryROB);
+        reorderBuffer.refresh();
+    }
 
     
     
@@ -760,7 +847,9 @@ void animationUpdade(){
         int contInstrucoes = 0;
 
         FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory( new File(lastVisitedDirectory) );
         File selectedFile = fileChooser.showOpenDialog(null);
+        lastVisitedDirectory = selectedFile != null ? selectedFile.getParent() : lastVisitedDirectory;
         
         if (selectedFile != null) {
 
@@ -771,6 +860,7 @@ void animationUpdade(){
                 File fin = new File(selectedFile.getAbsolutePath());
                 FileReader fr = new FileReader(fin);
                 BufferedReader br = new BufferedReader(fr);
+                listMEM.clear();
                 
                 // enquanto não for fim de arquivo le 
                 while(br.ready()){
@@ -786,16 +876,17 @@ void animationUpdade(){
 
                 br.close();
 
+                resetSimulation();
                 animationUpdade();
 
             }catch(IOException ioe){
                 ioe.printStackTrace();
             }
             
-            menuOpenFile.setDisable(true);
+            // menuOpenFile.setDisable(true);
         }
         else {
-            System.out.println("Erro ao abrir: " + selectedFile.getAbsolutePath());
+            System.out.println("Nenhum arquivo foi selecionado");
         }
         
     }
@@ -972,11 +1063,11 @@ void animationUpdade(){
             if(listROBcurrentPos < listROBMaxSize) {
 
                 int instrDecoder = listIQ.get(0).getInst();
-		String opDecoder = listIQ.get(0).getOp();
-		String rdDecoder = listIQ.get(0).getRd();
-		String rsDecoder = listIQ.get(0).getRs();
-		String rtDecoder = listIQ.get(0).getRt();
-		int imDecoder = listIQ.get(0).getIm();
+                String opDecoder = listIQ.get(0).getOp();
+                String rdDecoder = listIQ.get(0).getRd();
+                String rsDecoder = listIQ.get(0).getRs();
+                String rtDecoder = listIQ.get(0).getRt();
+                int imDecoder = listIQ.get(0).getIm();
                 String type;
 
                 if(opDecoder.equals("ADD") || opDecoder.equals("ADDi") || opDecoder.equals("SUB") || opDecoder.equals("SUBi")) {
@@ -1744,7 +1835,7 @@ void animationUpdade(){
         
         int currentWay = 1;
         int currentROBitem = 0;
-                
+        
         while (currentROBitem < listROB.size()) {
             
             if (currentWay > wayNumber)
@@ -1784,7 +1875,7 @@ void animationUpdade(){
                 currentROBitem++;
             }
 
-        } 
+        }
 
         //Ler buffer de leitura
 

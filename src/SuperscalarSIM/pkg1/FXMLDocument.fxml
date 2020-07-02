@@ -1,3 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
 <!--
 ***************************************************************************
 *   Copyright (C) 2019 by Roberto Miranda                                 *
@@ -11,8 +13,6 @@
 ***************************************************************************
 -->
 
-
-<?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.input.*?>
 <?import javafx.scene.image.*?>
@@ -30,7 +30,9 @@
          <image>
             <Image url="@../../resources/FUNDO4.png" />
          </image></ImageView>
-      <Button fx:id="BotaoNext" layoutX="46.0" layoutY="500.0" mnemonicParsing="false" onAction="#nextCommandCheckButton" prefHeight="11.0" prefWidth="73.0" text="Next" />
+      <Button fx:id="botaoNext" layoutX="46.0" layoutY="500.0" mnemonicParsing="false" onAction="#nextCommandCheckButton" prefHeight="11.0" prefWidth="73.0" text="Next" />
+      <Button fx:id="botaoRun" layoutX="46.0" layoutY="530.0" mnemonicParsing="false" onAction="#runCommandCheckButton" prefHeight="11.0" prefWidth="73.0" text="Run" />
+      <Label fx:id="labelCycles" alignment="CENTER" layoutX="25.0" layoutY="600.0" text="Cycle: 0" />
       <TableView fx:id="reservStation1" layoutX="337.0" layoutY="93.0" prefHeight="100.0" scaleX="0.65" scaleY="0.6">
          <columns>
             <TableColumn fx:id="reservStation1Inst" editable="false" maxWidth="35.0" minWidth="35.0" prefWidth="35.0" resizable="false" sortable="false" text="Inst" />
@@ -177,6 +179,7 @@
             <Menu mnemonicParsing="false" text="Run">
               <items>
                 <MenuItem fx:id="menuNext" mnemonicParsing="false" onAction="#nextCommandCheckMenu" text="Next" />
+                <MenuItem fx:id="menuRun" mnemonicParsing="false" onAction="#runCommandCheckButton" text="Run" />
               </items>
             </Menu>
           <Menu mnemonicParsing="false" text="Help">
